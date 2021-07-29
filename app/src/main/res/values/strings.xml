@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Premiere app android</string>
+    <string name="textFieldUn">Entrez votre texte ici</string>
+    <string name="btn_valider">Valider</string>
+    <string name="txtField_test">Juste un test</string>
+    <string name="chck_OK">OK</string>
+    <string name="deuxieme_page">Deuxième page</string>
+    <string name="premier_plain_texte">Entrez votre message ici</string>
+</resources>
