@@ -6,4 +6,7 @@
     <string name="chck_OK">OK</string>
     <string name="deuxieme_page">Deuxième page</string>
     <string name="premier_plain_texte">Entrez votre message ici</string>
+    <string name="chp_noncode">Entrez ici le message à encoder</string>
+    <string name="chp_code">Entrez ici le message à DEcoder</string>
+    <string name="clef">clef : si vide, appuyez sur "générer"</string>
 </resources>
