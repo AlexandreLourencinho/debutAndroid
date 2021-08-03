@@ -8,9 +8,8 @@
 
     <EditText
         android:id="@+id/champ1"
-        android:layout_width="339dp"
-        android:layout_height="221dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="324dp"
+        android:layout_height="185dp"
         android:autofillHints="@string/chp_noncode"
         android:ems="10"
         android:gravity="start|top"
@@ -19,13 +18,15 @@
         app:layout_constraintBottom_toTopOf="@+id/champ2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 
     <EditText
         android:id="@+id/champ2"
-        android:layout_width="316dp"
-        android:layout_height="208dp"
+        android:layout_width="323dp"
+        android:layout_height="167dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="28dp"
         android:autofillHints="@string/chp_code"
         android:ems="10"
         android:gravity="start|top"
@@ -33,34 +34,33 @@
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@+id/champclef"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/champ1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949" />
 
     <EditText
         android:id="@+id/champclef"
         android:layout_width="292dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="88dp"
         android:ems="10"
         android:hint="@string/clef"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/boutonGen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:onClick="genererClef"
-        android:text="Générer"
+        android:text="@string/btnGen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/champclef" />
+        app:layout_constraintTop_toBottomOf="@+id/champclef"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,5 @@
     <string name="chp_noncode">Entrez ici le message à encoder</string>
     <string name="chp_code">Entrez ici le message à DEcoder</string>
     <string name="clef">clef : si vide, appuyez sur "générer"</string>
+    <string name="btnGen">Générer</string>
 </resources>
