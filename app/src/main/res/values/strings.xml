@@ -10,4 +10,11 @@
     <string name="chp_code">Entrez ici le message à DEcoder</string>
     <string name="clef">clef : si vide, appuyez sur "générer"</string>
     <string name="btnGen">Générer</string>
+    <string name="chk_bx">Veuillez cocher la checkbox</string>
+    <string name="aide_inutile">Répondez ici par oui</string>
+    <string name="descr_logo">logo application</string>
+    <string name="nom_clef">nom de la clef</string>
+    <string name="clef_content">Clef</string>
+    <string name="clef_add">Ajouter</string>
+    <string name="clef_annul">Annuler</string>
 </resources>
