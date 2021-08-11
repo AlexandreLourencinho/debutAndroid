@@ -17,4 +17,5 @@
     <string name="clef_content">Clef</string>
     <string name="clef_add">Ajouter</string>
     <string name="clef_annul">Annuler</string>
+    <string name="btn_sv">Sauver</string>
 </resources>

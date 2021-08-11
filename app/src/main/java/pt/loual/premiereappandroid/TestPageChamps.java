@@ -2,17 +2,31 @@ package pt.loual.premiereappandroid;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.state.State;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 import pt.loual.premiereappandroid.model.ManaBox;
+import pt.loual.premiereappandroid.sqlite.BddSql;
+import pt.loual.premiereappandroid.sqlite.Clefs;
 import pt.loual.premiereappandroid.tools.GenClef;
 import pt.loual.premiereappandroid.tools.Transcodeur;
 
@@ -22,6 +36,10 @@ public class TestPageChamps extends AppCompatActivity {
     private EditText champ2;
     private EditText champclef;
     private Button boutonGen;
+    private Button boutonSauver;
+    private Spinner spinnerClefs;
+    private ArrayList<Clefs> listeClefs;
+    private ArrayAdapter<Clefs> listeClefsAdapt;
 
     private Transcodeur trans;
 
@@ -35,6 +53,17 @@ public class TestPageChamps extends AppCompatActivity {
         champ2 = (EditText) findViewById(R.id.champ2);
         champclef = (EditText) findViewById(R.id.champclef);
         boutonGen = findViewById(R.id.boutonGen);
+        boutonSauver = findViewById(R.id.boutonSauver);
+        spinnerClefs = findViewById(R.id.spinnerClefs);
+
+        BddSql db = new BddSql(this);
+//        db.supprimerTout(db.liste());
+        db.creerDefaut();
+        listeClefs = db.liste();
+        listeClefsAdapt = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,android.R.id.text1,this.listeClefs);
+        this.spinnerClefs.setAdapter(listeClefsAdapt);
+        registerForContextMenu(this.spinnerClefs);
+
 
 
         champ1.setOnClickListener(new View.OnClickListener() {
@@ -125,12 +154,24 @@ public class TestPageChamps extends AppCompatActivity {
             }
         });
 
+        spinnerClefs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,int position, long id){
+                Clefs clef = (Clefs)parentView.getItemAtPosition(position);
+                champclef.setText(clef.getClef_contenu());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+//                champclef.setText("");
+            }
+        });
 
         boutonGen.setOnClickListener(this::genererClef);
-
+        boutonSauver.setOnClickListener(this::sauverClef);
 
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void genererClef(View view) {
@@ -139,6 +180,24 @@ public class TestPageChamps extends AppCompatActivity {
         champclef.setText(ManaBox.encrypt(gen.randomKey()));
     }
 
+    public void sauverClef(View view) {
+        if (champclef.getText().toString().equals("")) {
+            AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
+            consrt.setMessage("Vous devez d'abord avoir une clef. Si vous n'en avez pas, générez en une à l'aide du bouton \" générer \" ").show();
+        }else{
+            BddSql db = new BddSql(this);
+            Clefs clefs = new Clefs("test1",champclef.getText().toString());
+            try {
+                db.ajouter(clefs);
+                AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
+                consrt.setMessage("La clef à été enregistrée ").show();
+            } catch (Exception e) {
+                AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
+                consrt.setMessage("Un problème est survenu lors de l'enregistrement de la clef ").show();
+            }
+
+        }
+    }
 
 
 }

@@ -30,7 +30,7 @@ public class BddSql extends SQLiteOpenHelper implements DAOinterface<Clefs>{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CLEF + "(" + COLONNE_CLEF_ID+" INTEGER PRIMARY KEY," + COLONNE_CLEF_NOM + " TEXT," + COLONNE_CLEF_CONTENU
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CLEF + "(" + COLONNE_CLEF_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + COLONNE_CLEF_NOM + " TEXT," + COLONNE_CLEF_CONTENU
         +" TEXT)");
     }
 
@@ -45,8 +45,12 @@ public class BddSql extends SQLiteOpenHelper implements DAOinterface<Clefs>{
         int compte = this.compteur();
         GenClef genclef = new GenClef();
         if(compte==0){
-            Clefs clef1 = new Clefs(1,"Première clef", genclef.randomKey());
-            this.ajouter(clef1);
+                Clefs clef1 = new Clefs("Première clef", genclef.randomKey());
+                Clefs clef2 = new Clefs("Deuxième clef", genclef.randomKey());
+                this.ajouter(clef1);
+                this.ajouter(clef2);
+
+
         }
 
     }
@@ -57,29 +61,57 @@ public class BddSql extends SQLiteOpenHelper implements DAOinterface<Clefs>{
         ContentValues valeurs = new ContentValues();
 
         valeurs.put(COLONNE_CLEF_NOM,clef.getClef_nom());
-
+        valeurs.put(COLONNE_CLEF_CONTENU,clef.getClef_contenu());
         db.insert(TABLE_CLEF,null,valeurs);
         db.close();
     }
 
     @Override
     public boolean modifier(Clefs o) {
-        return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valeurs = new ContentValues();
+        valeurs.put(COLONNE_CLEF_NOM,o.getClef_nom());
+        valeurs.put(COLONNE_CLEF_CONTENU,o.getClef_contenu());
+
+        return db.update(TABLE_CLEF, valeurs, COLONNE_CLEF_ID + "=?", new String[]{String.valueOf(o.getClef_id())}) == 1;
     }
 
     @Override
-    public boolean supprimer(int id) {
-        return false;
+    public boolean supprimer(Clefs o) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CLEF,COLONNE_CLEF_ID+ "=?",new String[]{String.valueOf(o.getClef_id())});
+            db.close();
+            return true;
     }
 
     @Override
     public Clefs trouverUn(int id) {
-        return null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CLEF,new String[]{COLONNE_CLEF_NOM,COLONNE_CLEF_CONTENU}, COLONNE_CLEF_ID + "=?",
+                new String[]{String.valueOf(id)},null,null,null);
+        if(cursor!=null && cursor.moveToFirst()){
+          cursor.moveToFirst();
+            return new Clefs(Integer.parseInt((cursor.getString(0))), cursor.getString(1), cursor.getString(2));
+        }else{
+            return null;
+        }
     }
 
     @Override
     public ArrayList<Clefs> liste() {
-        return null;
+        ArrayList<Clefs> listeClefs = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Clefs",null);
+        if(cursor.moveToFirst()){
+            do{
+                Clefs clef = new Clefs();
+                clef.setClef_id(cursor.getInt(0));
+                clef.setClef_nom(cursor.getString(1));
+                clef.setClef_contenu(cursor.getString(2));
+                listeClefs.add(clef);
+            }while (cursor.moveToNext());
+        }
+        return listeClefs;
     }
 
     @Override
@@ -89,5 +121,13 @@ public class BddSql extends SQLiteOpenHelper implements DAOinterface<Clefs>{
         int compte = cursor.getCount();
         cursor.close();
         return compte;
+    }
+
+
+    public void supprimerTout(ArrayList<Clefs> listeclefs)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CLEF,COLONNE_CLEF_ID+ "=?",new String[]{String.valueOf(0)});
+        db.close();
     }
 }
