@@ -6,84 +6,90 @@
     android:layout_height="match_parent"
     tools:context=".TestPageChamps">
 
-    <EditText
-        android:id="@+id/champ1"
-        android:layout_width="324dp"
-        android:layout_height="185dp"
-        android:autofillHints="@string/chp_noncode"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/chp_noncode"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/champ2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.728" />
 
-    <EditText
-        android:id="@+id/champ2"
-        android:layout_width="323dp"
-        android:layout_height="167dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="28dp"
-        android:autofillHints="@string/chp_code"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/chp_code"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/champclef"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949" />
-
-    <EditText
-        android:id="@+id/champclef"
-        android:layout_width="292dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="120dp"
-        android:ems="10"
-        android:hint="@string/clef"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="367dp"
+        android:layout_height="496dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
+        android:layout_marginBottom="76dp"
+        app:layout_column="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/champclef">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_row="0">
 
-        <Button
-            android:id="@+id/boutonGen"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btnGen" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/boutonSauver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btn_sv" />
+            <EditText
+                android:id="@+id/champ1"
+                android:layout_width="match_parent"
+                android:layout_height="132dp"
+                android:autofillHints="@string/chp_noncode"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/chp_noncode"
+                android:inputType="textMultiLine" />
 
-        <Spinner
-            android:id="@+id/spinnerClefs"
-            android:layout_width="116dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:spinnerMode="dropdown" />
+            <EditText
+                android:id="@+id/champ2"
+                android:layout_width="match_parent"
+                android:layout_height="118dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="28dp"
+                android:autofillHints="@string/chp_code"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/chp_code"
+                android:inputType="textMultiLine" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/champclef"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="120dp"
+                android:ems="10"
+                android:hint="@string/clef"
+                android:inputType="textPersonName" />
+
+            <LinearLayout
+                android:layout_width="322dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:translationY="-90dp">
+
+                <Button
+                    android:id="@+id/boutonGen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/btnGen" />
+
+                <Button
+                    android:id="@+id/boutonSauver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/btn_sv" />
+
+                <Spinner
+                    android:id="@+id/spinnerClefs"
+                    android:layout_width="128dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

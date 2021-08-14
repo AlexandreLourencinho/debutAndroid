@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity
 {
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splashscreen);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         Animation topAnim = AnimationUtils.loadAnimation(this,R.anim.anim_logo);
         ImageView logo = findViewById(R.id.imageView);
         logo.setAnimation(topAnim);

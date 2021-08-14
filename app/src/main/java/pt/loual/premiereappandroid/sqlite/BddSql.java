@@ -45,10 +45,12 @@ public class BddSql extends SQLiteOpenHelper implements DAOinterface<Clefs>{
         int compte = this.compteur();
         GenClef genclef = new GenClef();
         if(compte==0){
+            Clefs clef0 = new Clefs(0,"Selectionnez une clef", "");
                 Clefs clef1 = new Clefs("Première clef", genclef.randomKey());
-                Clefs clef2 = new Clefs("Deuxième clef", genclef.randomKey());
+//                Clefs clef2 = new Clefs("Deuxième clef", genclef.randomKey());
+                this.ajouter(clef0);
                 this.ajouter(clef1);
-                this.ajouter(clef2);
+
 
 
         }

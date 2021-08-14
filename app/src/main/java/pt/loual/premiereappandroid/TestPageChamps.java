@@ -7,6 +7,7 @@ import androidx.constraintlayout.solver.state.State;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,9 @@ public class TestPageChamps extends AppCompatActivity {
 
     private Transcodeur trans;
 
+    public static final String EXTRA_MESSAGE_CLEF="pt.alexandre.monapp.MESSAGE";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class TestPageChamps extends AppCompatActivity {
         listeClefsAdapt = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,android.R.id.text1,this.listeClefs);
         this.spinnerClefs.setAdapter(listeClefsAdapt);
         registerForContextMenu(this.spinnerClefs);
+        spinnerClefs.setSelection(0);
 
 
 
@@ -157,8 +162,12 @@ public class TestPageChamps extends AppCompatActivity {
         spinnerClefs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,int position, long id){
-                Clefs clef = (Clefs)parentView.getItemAtPosition(position);
-                champclef.setText(clef.getClef_contenu());
+                if(position!=-1) {
+                    Clefs clef = (Clefs) parentView.getItemAtPosition(position);
+                    champclef.setText(clef.getClef_contenu());
+                }else{
+                    champclef.setText("");
+                }
 
             }
 
@@ -170,7 +179,7 @@ public class TestPageChamps extends AppCompatActivity {
 
         boutonGen.setOnClickListener(this::genererClef);
         boutonSauver.setOnClickListener(this::sauverClef);
-
+//        champclef.setText("");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -183,14 +192,21 @@ public class TestPageChamps extends AppCompatActivity {
     public void sauverClef(View view) {
         if (champclef.getText().toString().equals("")) {
             AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
-            consrt.setMessage("Vous devez d'abord avoir une clef. Si vous n'en avez pas, générez en une à l'aide du bouton \" générer \" ").show();
+            consrt.setCancelable(false);
+            consrt.setMessage("Vous devez d'abord avoir une clef. Si vous n'en avez pas, générez en une à l'aide du bouton \" générer \" ");
+//            consrt.setCancelable(true);
+            consrt.setPositiveButton("ok", (dialog, which) -> dialog.dismiss());
+            consrt.show();
         }else{
-            BddSql db = new BddSql(this);
-            Clefs clefs = new Clefs("test1",champclef.getText().toString());
             try {
-                db.ajouter(clefs);
-                AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
-                consrt.setMessage("La clef à été enregistrée ").show();
+                Intent intent = new Intent(this,nomClefs.class);
+                String keyRecup = champclef.getText().toString();
+
+                intent.putExtra(EXTRA_MESSAGE_CLEF,keyRecup);
+                startActivity(intent);
+//                db.ajouter(clefs);
+//                AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
+//                consrt.setMessage("La clef à été enregistrée ").show();
             } catch (Exception e) {
                 AlertDialog.Builder consrt = new AlertDialog.Builder(TestPageChamps.this);
                 consrt.setMessage("Un problème est survenu lors de l'enregistrement de la clef ").show();

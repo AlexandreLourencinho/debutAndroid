@@ -1,2 +1,2 @@
-rootProject.name = "Premiere app android"
+rootProject.name = "Le Transcodeur"
 include ':app'

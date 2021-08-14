@@ -4,11 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logotranscodeur"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logotranscodeur"
         android:supportsRtl="true"
         android:theme="@style/Theme.PremiereAppAndroid">
+        <activity
+            android:name=".nomClefs"
+            android:exported="true"
+            android:parentActivityName=".TestPageChamps"
+            />
         <activity
             android:name=".AjouterClefActivite"
             android:exported="true" />

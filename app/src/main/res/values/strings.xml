@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Premiere app android</string>
+    <string name="app_name">Le Transcodeur</string>
     <string name="textFieldUn">Entrez votre texte ici</string>
     <string name="btn_valider">Valider</string>
     <string name="txtField_test">Juste un test</string>
@@ -18,4 +18,7 @@
     <string name="clef_add">Ajouter</string>
     <string name="clef_annul">Annuler</string>
     <string name="btn_sv">Sauver</string>
+    <string name="cleflbd">clef</string>
+    <string name="btn_sv_clef">sauver la clef</string>
+    <string name="entr_nm_clef">entrez le nom de la clef</string>
 </resources>
